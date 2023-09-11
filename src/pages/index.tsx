@@ -1,6 +1,7 @@
+import styles from 'src/styles/Home.module.css';
 import useDic from '../hooks/useDic';
 
-const SearchDic = () => {
+const Home = () => {
   const { query, setQuery, results, handleSearch, handleKeyDown} = useDic();
 
   return (
@@ -11,9 +12,13 @@ const SearchDic = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
+        className={styles.inputField}
       />
-      <button onClick={handleSearch}>検索</button>
-      <ul>
+      <button
+        onClick={handleSearch}
+        className={styles.searchButton}
+      >検索</button>
+      <ul className={styles.resultsList}>
         {results.map((result, index) => (
           <li key={index}>{result}</li>
         ))}
@@ -22,4 +27,4 @@ const SearchDic = () => {
   );
 };
 
-export default SearchDic;
+export default Home;

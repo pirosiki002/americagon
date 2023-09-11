@@ -1,0 +1,17 @@
+.inputField {
+  font-size: 2em;
+  width: 50%; /* inputの長さを現在の半分にする */
+  height: 50px; /* 縦幅を適切に調整する場合 */
+}
+
+.searchButton {
+  width: 100px; /* 横幅を100pxに固定する */
+  height: 50px; /* 縦幅を適切に調整する場合 */
+  margin-left: 20px;
+}
+
+.resultsList {
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
