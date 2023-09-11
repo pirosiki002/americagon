@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import searchDictionary from '../hooks/searchDictionary';
+import searchDic from './searchDic';
 
-const useDictionarySearch = () => {
+const useDic = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
 
   const handleSearch = async () => {
-    const res = await searchDictionary(query);
+    const res = await searchDic(query);
     setResults(res);
   };
 
@@ -18,4 +18,4 @@ const useDictionarySearch = () => {
   };
 };
 
-export default useDictionarySearch;
+export default useDic;

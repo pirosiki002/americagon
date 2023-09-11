@@ -1,4 +1,4 @@
-const searchDictionary = async (query: string): Promise<string[]> => {
+const searchDic = async (query: string): Promise<string[]> => {
   const response = await fetch('/kantan-ej-dictionary.json');
   const data = await response.json();
 
@@ -8,4 +8,4 @@ const searchDictionary = async (query: string): Promise<string[]> => {
   return [];
 };
 
-export default searchDictionary;
+export default searchDic;
