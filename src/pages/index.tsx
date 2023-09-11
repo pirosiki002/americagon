@@ -1,19 +1,7 @@
-import { useState } from 'react';
+import useDictionarySearch from '../hooks/useDictionarySearch';
 
 const Home = () => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState<string[]>([]);
-
-  const handleSearch = async () => {
-    const response = await fetch('/kantan-ej-dictionary.json');
-    const data = await response.json();
-
-    if (data[query]) {
-      setResults(data[query].ja);
-    } else {
-      setResults([]);
-    }
-  };
+  const { query, setQuery, results, handleSearch } = useDictionarySearch();
 
   return (
     <div>
