@@ -19,7 +19,7 @@ const Dictionary = () => {
     <div>
       <input
         type="text"
-        placeholder="英語の単語を入力"
+        placeholder="Please English words"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
