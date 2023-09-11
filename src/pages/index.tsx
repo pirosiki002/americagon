@@ -1,7 +1,14 @@
-import useDictionarySearch from '../hooks/useDictionarySearch';
+import useDic from '../hooks/useDic';
 
-const Home = () => {
-  const { query, setQuery, results, handleSearch } = useDictionarySearch();
+const SearchDic = () => {
+  const { query, setQuery, results, handleSearch } = useDic();
+
+  // Enterキーが押されたときの処理
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <div>
@@ -10,6 +17,7 @@ const Home = () => {
         placeholder="英語の単語を入力"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
       <button onClick={handleSearch}>検索</button>
       <ul>
@@ -21,4 +29,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default SearchDic;
