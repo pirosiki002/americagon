@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Dictionary = () => {
+const Home = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
 
@@ -33,4 +33,4 @@ const Dictionary = () => {
   );
 };
 
-export default Dictionary;
+export default Home;
