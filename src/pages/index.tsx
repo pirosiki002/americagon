@@ -1,14 +1,7 @@
 import useDic from '../hooks/useDic';
 
 const SearchDic = () => {
-  const { query, setQuery, results, handleSearch } = useDic();
-
-  // Enterキーが押されたときの処理
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      handleSearch();
-    }
-  };
+  const { query, setQuery, results, handleSearch, handleKeyDown} = useDic();
 
   return (
     <div>
@@ -17,7 +10,7 @@ const SearchDic = () => {
         placeholder="英語の単語を入力"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyPress}
+        onKeyDown={handleKeyDown}
       />
       <button onClick={handleSearch}>検索</button>
       <ul>

@@ -10,11 +10,19 @@ const useDic = () => {
     setResults(res);
   };
 
+  // Enterキーが押されたときの処理
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return {
     query,
     setQuery,
     results,
-    handleSearch
+    handleSearch,
+    handleKeyDown
   };
 };
 
