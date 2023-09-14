@@ -1,5 +1,5 @@
 // components/inputTable.tsx
-import styles from "./inputTable.module.css";
+import styles from "./InputTable.module.css";
 
 type InputTableProps = {
   size: number;
