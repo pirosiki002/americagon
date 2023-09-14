@@ -1,0 +1,8 @@
+/* pages/index.module.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}

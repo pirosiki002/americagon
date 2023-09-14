@@ -1,30 +1,13 @@
-import styles from 'src/styles/Home.module.css';
-import useDic from '../hooks/useDic';
+// pages/index.tsx
 
-const Home = () => {
-  const { query, setQuery, results, handleSearch, handleKeyDown} = useDic();
+import InputTable from "../components/inputTable";
+import styles from "./index.module.css";
 
+export default function Home() {
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="英語の単語を入力"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className={styles.inputField}
-      />
-      <button
-        onClick={handleSearch}
-        className={styles.searchButton}
-      >検索</button>
-      <ul className={styles.resultsList}>
-        {results.map((result, index) => (
-          <li key={index}>{result}</li>
-        ))}
-      </ul>
+    <div className={styles.container}>
+      <h1>America Gon</h1>
+      <InputTable size={4} />
     </div>
   );
-};
-
-export default Home;
+}
