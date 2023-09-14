@@ -1,5 +1,6 @@
-// components/inputTable.tsx
-import styles from "./InputTable.module.css";
+import React from "react";
+import InputRow from "src/components/InputRow";
+import styles from "src/components/InputTable/InputTable.module.css";
 
 type InputTableProps = {
   size: number;
@@ -8,11 +9,7 @@ type InputTableProps = {
 };
 
 const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
-  const initialBoard = Array(size)
-    .fill("")
-    .map(() => Array(size).fill(""));
-
-  const handleInputChange = (
+  const handleCellChange = (
     rowIndex: number,
     colIndex: number,
     value: string
@@ -24,20 +21,14 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
 
   return (
     <div className={styles.container}>
-      {board.map((row, rowIndex) => (
-        <div key={rowIndex} className={styles.row}>
-          {row.map((cell, colIndex) => (
-            <input
-              key={colIndex}
-              value={cell}
-              maxLength={1}
-              onChange={(e) =>
-                handleInputChange(rowIndex, colIndex, e.target.value)
-              }
-              className={styles.input}
-            />
-          ))}
-        </div>
+      {board.map((rowData, rowIndex) => (
+        <InputRow
+          key={rowIndex}
+          rowData={rowData}
+          onCellChange={(colIndex, value) =>
+            handleCellChange(rowIndex, colIndex, value)
+          }
+        />
       ))}
     </div>
   );
