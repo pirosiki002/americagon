@@ -1,18 +1,16 @@
 // components/inputTable.tsx
-
-import { useState } from "react";
 import styles from "./inputTable.module.css";
 
-type Props = {
-  size?: number;
+type InputTableProps = {
+  size: number;
+  board: string[][];
+  setBoard: React.Dispatch<React.SetStateAction<string[][]>>;
 };
 
-const InputTable: React.FC<Props> = ({ size = 4 }) => {
+const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
   const initialBoard = Array(size)
     .fill("")
     .map(() => Array(size).fill(""));
-
-  const [board, setBoard] = useState(initialBoard);
 
   const handleInputChange = (
     rowIndex: number,
