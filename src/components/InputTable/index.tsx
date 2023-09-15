@@ -24,6 +24,7 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
       {board.map((rowData, rowIndex) => (
         <InputRow
           key={rowIndex}
+          rowIndex={rowIndex}
           rowData={rowData}
           onCellChange={(colIndex, value) =>
             handleCellChange(rowIndex, colIndex, value)
