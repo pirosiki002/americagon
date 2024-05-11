@@ -5,23 +5,23 @@ import styles from "src/components/InputCell/InputCell.module.css";
 type InputRowProps = {
   rowIndex: number;
   rowData: string[];
-  onCellChange: (colIndex: number, value: string) => void;
+  handleCellChange: (rowIndex:number, colIndex: number, value: string) => void;
 };
 
 const InputRow: React.FC<InputRowProps> = ({
   rowIndex,
   rowData,
-  onCellChange,
+  handleCellChange,
 }) => {
   return (
     <div className={styles.row}>
       {rowData.map((cellValue, colIndex) => (
         <InputCell
+          key={colIndex}
           col={colIndex}
           row={rowIndex}
-          key={colIndex}
           value={cellValue}
-          onChange={(value) => onCellChange(colIndex, value)}
+          onChange={(newValue) => handleCellChange(rowIndex, colIndex, newValue)}
         />
       ))}
     </div>

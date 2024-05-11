@@ -9,10 +9,14 @@ const createInitialBoard = (size: number) => {
     .map(() => Array(size).fill(""));
 };
 
+// テーブルを表示している大元のコンポーネント
 export default function Home() {
-  const size = 4;
-  const [board, setBoard] = useState(createInitialBoard(size));
 
+  const size = 4;
+  const [board, setBoard] = useState(createInitialBoard(size));  // useStateを使って盤面の状態を管理。値を更新するたびに再描画する
+  console.log(board);  // ログはブラウザに表示
+
+  // リセットボタンを押したときの処理
   const handleReset = () => {
     setBoard(createInitialBoard(size));
   };

@@ -9,26 +9,27 @@ type InputTableProps = {
 };
 
 const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
+
+  // セルが変更されたときの処理
   const handleCellChange = (
     rowIndex: number,
     colIndex: number,
     value: string
   ) => {
     const newBoard = [...board];
-    newBoard[rowIndex][colIndex] = value.substr(0, 1);
+    newBoard[rowIndex][colIndex] = value;
     setBoard(newBoard);
   };
 
   return (
     <div className={styles.container}>
+      {/* テーブルを作成 */}
       {board.map((rowData, rowIndex) => (
         <InputRow
           key={rowIndex}
           rowIndex={rowIndex}
           rowData={rowData}
-          onCellChange={(colIndex, value) =>
-            handleCellChange(rowIndex, colIndex, value)
-          }
+          handleCellChange={handleCellChange}
         />
       ))}
     </div>
