@@ -18,6 +18,7 @@ const Dic = () => {
         検索
       </button>
       <ul className={styles.resultsList}>
+        <h1>{query}</h1>
         {results.map((result, index) => (
           <li key={index}>{result}</li>
         ))}
