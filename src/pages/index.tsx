@@ -5,6 +5,9 @@ import styles from "./index.module.css";
 import useDic from "../hooks/useDic";
 import searchDic from '../hooks/searchDic';
 
+// 盤面の状態を管理する
+const BOARD_SIZE = 10;
+
 // 盤面の初期化
 const createInitialBoard = (size: number) => {
   return Array(size)
@@ -22,7 +25,7 @@ function useWordCheck(board: string[][]): boolean {
 // 単語を生成する
 const generateWord = () => {
   // Perform the word generation here
-  return "heart";
+  return "";
 };
 
 
@@ -30,8 +33,18 @@ const generateWord = () => {
 export default function Home() {
   // 辞書機能を使うために、useDic.tsxからの処理を呼び出す
   const { query, setQuery, results, handleSearch, handleKeyDown } = useDic();
-
   const [generatedWord, setGeneratedWord] = useState(generateWord());
+  const size = BOARD_SIZE;
+  const [board, setBoard] = useState(createInitialBoard(size));  // useStateを使って盤面の状態を管理。値を更新するたびに再描画する
+  console.log(board);  // ログはブラウザに表示
+
+  // boardの状態が更新されるたびに、その内容をqueryに設定し、辞書検索を行う
+  useEffect(() => {
+    const word = board.flat().join('');
+    setQuery(word);
+    handleSearch();
+  }, [board]);
+
 
   useEffect(() => {
     setQuery(generatedWord);
@@ -43,13 +56,8 @@ export default function Home() {
     handleSearch();
   }, [query]);
 
-  const size = 4;
-  const [board, setBoard] = useState(createInitialBoard(size));  // useStateを使って盤面の状態を管理。値を更新するたびに再描画する
-  console.log(board);  // ログはブラウザに表示
-
   // リセットボタンを押したときの処理
   const handleReset = () => {
-    // setBoard(createInitialBoard(size));
     setGeneratedWord('');
     setBoard(createInitialBoard(size));
   };
@@ -65,26 +73,12 @@ export default function Home() {
       <InputTable size={size} board={board} setBoard={setBoard} />
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
-      <div>
-      {/* <input
-        type="text"
-        placeholder="英語の単語を入力"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className={styles.inputField}
-      />
-      <button onClick={handleSearch} className={styles.searchButton}>
-        検索
-      </button> */}
       <ul className={styles.resultsList}>
         <h1>{query}</h1>
         {results.map((result, index) => (
           <li key={index}>{result}</li>
         ))}
       </ul>
-    </div>
-
     </div>
   );
 }
