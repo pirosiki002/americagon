@@ -4,4 +4,7 @@
   font-size: 24px;
   text-align: center;
   margin: 5px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* ボックスシャドウを追加 */
+  background: linear-gradient(135deg, #f0f0f0, #a1d2ef); /* グラデーションを追加 */
 }
