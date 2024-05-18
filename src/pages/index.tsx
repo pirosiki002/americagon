@@ -81,8 +81,8 @@ export default function Home() {
       <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  lastInputCell={lastInputCell}/>
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
+      <h1>{query}</h1>
       <ul className={styles.resultsList}>
-        <h1>{query}</h1>
         {results.map((result, index) => (
           <li key={index}>{result}</li>
         ))}
