@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <h1>America Gon</h1>
-      <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}/>
+      <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  lastInputCell={lastInputCell}/>
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
       <ul className={styles.resultsList}>

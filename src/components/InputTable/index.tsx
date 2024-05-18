@@ -8,9 +8,23 @@ type InputTableProps = {
   board: string[][];
   setBoard: React.Dispatch<React.SetStateAction<string[][]>>;
   onCellClick: (row: number, col: number) => void;
+  lastInputCell: { row: number; col: number } | null;  // ここを修正
 };
 
-const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellClick}) => {
+const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellClick, lastInputCell}) => {
+
+  // 隣接するセルかどうかを判定する関数
+  const isAdjacentCell = (
+    currentRow: number,
+    currentCol: number,
+    lastRow: number,
+    lastCol: number
+  ): boolean => {
+    return (
+      (currentRow === lastRow && Math.abs(currentCol - lastCol) === 1) ||
+      (currentCol === lastCol && Math.abs(currentRow - lastRow) === 1)
+    );
+  };
 
   // セルが変更されたときの処理
   const handleCellChange = (
@@ -18,6 +32,14 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellCl
     colIndex: number,
     value: string
   ) => {
+    if (lastInputCell !== null) {
+      const { row: lastRow, col: lastCol } = lastInputCell;
+      if (!isAdjacentCell(rowIndex, colIndex, lastRow, lastCol)) {
+        // 最後に入力したセルの上下左右にない場合、入力を無視する
+        return;
+      }
+    }
+
     const newBoard = [...board];
     newBoard[rowIndex][colIndex] = value;
     setBoard(newBoard);
