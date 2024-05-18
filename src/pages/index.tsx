@@ -35,14 +35,14 @@ export default function Home() {
   const [generatedWord, setGeneratedWord] = useState(generateWord());
   const size = BOARD_SIZE;
   const [board, setBoard] = useState(createInitialBoard(size));  // useStateを使って盤面の状態を管理。値を更新するたびに再描画する
-  // 最後に入力したセルの位置を状態として保持
-  const [lastInputCell, setLastInputCell] = useState<{ row: number; col: number } | null>(null);
 
-  console.log(lastInputCell);
+  // これまでに入力されたすべてのセルを追跡
+  const [inputCells, setInputCells] = useState<{row: number, col: number}[]>([]);
 
   // セルがクリックされたときのコールバック関数
   const handleCellClick = (row: number, col: number) => {
-    setLastInputCell({ row, col });
+    // setLastInputCell({ row, col });
+    setInputCells([...inputCells, { row, col }]);
   };
 
   // boardの状態が更新されるたびに、その内容をqueryに設定し、辞書検索を行う
@@ -66,7 +66,7 @@ export default function Home() {
   // リセットボタンを押したときの処理
   const handleReset = () => {
     setGeneratedWord('');   // 入力した文字をすべてリセット
-    setLastInputCell(null); // lastInputCellをリセット
+    setInputCells([]); // inputCellsをリセット
     setBoard(createInitialBoard(size));
   };
 
@@ -78,7 +78,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <h1>America Gon</h1>
-      <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  lastInputCell={lastInputCell}/>
+      <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  inputCells={inputCells} />
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
       <h1>{query}</h1>

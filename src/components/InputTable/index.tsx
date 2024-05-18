@@ -1,5 +1,3 @@
-import { on } from "events";
-import React from "react";
 import InputRow from "src/components/InputRow";
 import styles from "src/components/InputTable/InputTable.module.css";
 
@@ -8,10 +6,20 @@ type InputTableProps = {
   board: string[][];
   setBoard: React.Dispatch<React.SetStateAction<string[][]>>;
   onCellClick: (row: number, col: number) => void;
-  lastInputCell: { row: number; col: number } | null;  // ここを修正
+  inputCells: {row: number, col: number}[]; // 追加
 };
 
-const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellClick, lastInputCell}) => {
+const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellClick, inputCells}) => {
+
+  // これまでに入力されたすべてのセルを追跡
+  const isAdjacentToAnyInputCell = (currentRow: number, currentCol: number): boolean => {
+    for (let cell of inputCells) {
+      if (isAdjacentCell(currentRow, currentCol, cell.row, cell.col)) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   // 隣接するセルかどうかを判定する関数
   const isAdjacentCell = (
@@ -38,13 +46,13 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellCl
       return;
     }
 
-    if (lastInputCell !== null) {
-      const { row: lastRow, col: lastCol } = lastInputCell;
-      if (!isAdjacentCell(rowIndex, colIndex, lastRow, lastCol)) {
-        // 最後に入力したセルの上下左右にない場合、入力を無視する
-        return;
-      }
+    if (inputCells.length > 0 && !isAdjacentToAnyInputCell(rowIndex, colIndex)) {
+      // すでに入力されたセルがあり、現在のセルがそれらのいずれかの隣接セルでない場合、入力を無視する
+      return;
     }
+
+    // 入力セルを追跡
+    onCellClick(rowIndex, colIndex);
 
     const newBoard = [...board];
     newBoard[rowIndex][colIndex] = value;
