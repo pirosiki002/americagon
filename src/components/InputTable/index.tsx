@@ -32,6 +32,12 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellCl
     colIndex: number,
     value: string
   ) => {
+    // 入力値が半角英字（a-z）であることを確認
+    if (!/^[a-z]+$/.test(value)) {
+      // 入力値が半角英字でない場合、入力を無視する
+      return;
+    }
+
     if (lastInputCell !== null) {
       const { row: lastRow, col: lastCol } = lastInputCell;
       if (!isAdjacentCell(rowIndex, colIndex, lastRow, lastCol)) {
