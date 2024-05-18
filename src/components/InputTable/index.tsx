@@ -1,3 +1,4 @@
+import { on } from "events";
 import React from "react";
 import InputRow from "src/components/InputRow";
 import styles from "src/components/InputTable/InputTable.module.css";
@@ -6,9 +7,10 @@ type InputTableProps = {
   size: number;
   board: string[][];
   setBoard: React.Dispatch<React.SetStateAction<string[][]>>;
+  onCellClick: (row: number, col: number) => void;
 };
 
-const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
+const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard, onCellClick}) => {
 
   // セルが変更されたときの処理
   const handleCellChange = (
@@ -19,6 +21,7 @@ const InputTable: React.FC<InputTableProps> = ({ size, board, setBoard }) => {
     const newBoard = [...board];
     newBoard[rowIndex][colIndex] = value;
     setBoard(newBoard);
+    onCellClick(rowIndex, colIndex);
   };
 
   return (

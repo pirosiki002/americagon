@@ -3,7 +3,6 @@ import InputTable from "src/components/InputTable";
 import ResetButton from "../components/ResetButton";
 import styles from "./index.module.css";
 import useDic from "../hooks/useDic";
-import searchDic from '../hooks/searchDic';
 
 // 盤面の状態を管理する
 const BOARD_SIZE = 10;
@@ -36,7 +35,15 @@ export default function Home() {
   const [generatedWord, setGeneratedWord] = useState(generateWord());
   const size = BOARD_SIZE;
   const [board, setBoard] = useState(createInitialBoard(size));  // useStateを使って盤面の状態を管理。値を更新するたびに再描画する
-  console.log(board);  // ログはブラウザに表示
+  // 最後に入力したセルの位置を状態として保持
+  const [lastInputCell, setLastInputCell] = useState<{ row: number; col: number } | null>(null);
+
+  console.log(lastInputCell);
+
+  // セルがクリックされたときのコールバック関数
+  const handleCellClick = (row: number, col: number) => {
+    setLastInputCell({ row, col });
+  };
 
   // boardの状態が更新されるたびに、その内容をqueryに設定し、辞書検索を行う
   useEffect(() => {
@@ -70,7 +77,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <h1>America Gon</h1>
-      <InputTable size={size} board={board} setBoard={setBoard} />
+      <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}/>
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
       <ul className={styles.resultsList}>
