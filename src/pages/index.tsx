@@ -65,7 +65,8 @@ export default function Home() {
 
   // リセットボタンを押したときの処理
   const handleReset = () => {
-    setGeneratedWord('');
+    setGeneratedWord('');   // 入力した文字をすべてリセット
+    setLastInputCell(null); // lastInputCellをリセット
     setBoard(createInitialBoard(size));
   };
 
