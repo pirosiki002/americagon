@@ -25,12 +25,11 @@ const searchDic = async (board: string[][], row: number, col: number): Promise<s
   // 上から下まで、文字がある端の位置を格納する。関数化したほうが良い。start *******************
 
   // まず現在位置を取得
-  const currentRow = row;
-  const currentCol = col;
+  const currentCol = col; // 列
+  const currentRow = row; // 行
 
   // 上下の一番端を記憶するためのローカル変数
   let verticalHighPosition = row;
-  let verticalLowPosition = row;
 
   // 現在位置から１マス上をチェックする
   for(let i=row; i >= 0; i--){
@@ -44,6 +43,26 @@ const searchDic = async (board: string[][], row: number, col: number): Promise<s
 
   console.log('verticalHighPosition=', verticalHighPosition);
 
+
+  let verticalLowPosition = row;
+
+  console.log('board[row].length=', board[row].length);
+  console.log('board[col].length=', board[col].length);
+  console.log('board.length=', board.length);
+  // 現在位置から１マス下をチェックする
+  for(let i=row; i < board[row].length; i++){
+    // もし値が入っていなかったら、その時点でループを抜ける
+    if(!(board[i][col])){
+      break;//ループを抜ける
+    }
+    // 現時点で一番上の位置を保持しておく
+    verticalLowPosition = i;
+  }
+
+  console.log('verticalHighPosition=', verticalHighPosition);
+  console.log('verticalLowPosition=', verticalLowPosition);
+
+
   // 上から下まで、文字がある端の位置を格納する。関数化したほうが良い。end *******************
 
 
@@ -52,7 +71,7 @@ const searchDic = async (board: string[][], row: number, col: number): Promise<s
 
   let verticalWord = '';
 
-  for(let i =verticalHighPosition; i <= row; i++){
+  for(let i =verticalHighPosition; i <= verticalLowPosition; i++){
     verticalWord += board[i][col];
   }
 
