@@ -1,5 +1,9 @@
-// const searchDic = async (query: string): Promise<string[]> => {
-const searchDic = async (board: string[][], row: number, col: number): Promise<string[]> => {
+type SearchDicResult = {
+  word: string;
+  matches: string[];
+}
+
+const searchDic = async (board: string[][], row: number, col: number): Promise<SearchDicResult> => {
     const response = await fetch('/kantan-ej-dictionary.json');
   const data = await response.json();
 
@@ -86,10 +90,11 @@ const searchDic = async (board: string[][], row: number, col: number): Promise<s
   const verticalMatches = data[verticalWord] ? data[verticalWord].ja : [];
   // const horizontalMatches = data[horizontalWord] ? data[horizontalWord].ja : [];
 
-  // 一致する単語を返す
-  // return [...verticalMatches, ...horizontalMatches];
-  return [...verticalMatches];
-
+  // 一致する単語と、辞書の意味を戻り値で返す
+  return {
+    word: verticalWord,
+    matches: [...verticalMatches],
+  };
 };
 
 export default searchDic;

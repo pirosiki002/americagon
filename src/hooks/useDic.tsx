@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import searchDic from './searchDic';
 
-// const useDic = () => {
 const useDic = (board: string[][], row: number, col: number) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
 
   const handleSearch = async () => {
     const res = await searchDic(board, row, col);
-    setResults(res);  // 検索結果をセット
+    const {word, matches} = res;
+    setResults(matches);  // 検索結果をセット
+    setQuery(word);
   };
 
   // Enterキーが押されたときの処理
