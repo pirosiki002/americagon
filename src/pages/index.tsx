@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <h1>America Gon</h1>
+      <h1>Pirorin Game</h1>
       <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  inputCells={inputCells} />
       <ResetButton onReset={handleReset} />
       <p>English word here</p>

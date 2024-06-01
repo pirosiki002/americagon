@@ -1,8 +1,12 @@
-/* pages/index.module.css */
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  background-color: rgb(235, 225, 140);
+}
+
+.container h1 {
+  font-family: 'HackGenNerd'; /* HackGenNerdは、そのままでは使えません */
 }
