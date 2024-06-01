@@ -1,9 +1,10 @@
 import styles from "src/styles/Home.module.css";
 import useDic from "../hooks/useDic";
 
-const Dic = () => {
-  const { query, setQuery, results, handleSearch, handleKeyDown } = useDic();
-
+const Dic = (props: {board: string[][], row: number, col: number}) => {
+  const {board, col, row} = props;
+  // const { query, setQuery, results, handleSearch, handleKeyDown } = useDic();
+  const { query, setQuery, results, handleSearch, handleKeyDown } = useDic(board, row, col);
   return (
     <div>
       <input
