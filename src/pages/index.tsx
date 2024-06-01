@@ -14,20 +14,6 @@ const createInitialBoard = (size: number) => {
     .map(() => Array(size).fill(""));
 };
 
-// TODO:英単語が成立しているかをチェック
-function useWordCheck(board: string[][]): boolean {
-  // Perform the word check here and return the result
-
-  return true;
-}
-
-// 単語を生成する
-const generateWord = () => {
-  // Perform the word generation here
-  return "";
-};
-
-
 // テーブルを表示している大元のコンポーネント
 export default function Home() {
   // 辞書機能を使うために、useDic.tsxからの処理を呼び出す
@@ -42,7 +28,6 @@ export default function Home() {
     setSelectedCol(col);
   };
 
-  const [generatedWord, setGeneratedWord] = useState(generateWord());
   const { query, setQuery, results, handleSearch, handleKeyDown } = useDic(board, selectedRow, selectedCol);
 
   // これまでに入力されたすべてのセルを追跡
@@ -63,12 +48,6 @@ export default function Home() {
     handleSearch();
   }, [board]);
 
-
-  useEffect(() => {
-    setQuery(generatedWord);
-    handleSearch();
-  }, [generatedWord]);
-
   // 文字列が更新されるたびに検索を行う
   useEffect(() => {
     handleSearch();
@@ -76,17 +55,10 @@ export default function Home() {
 
   // リセットボタンを押したときの処理
   const handleReset = () => {
-    setGeneratedWord('');   // 入力した文字をすべてリセット
     setInputCells([]); // inputCellsをリセット
     setBoard(createInitialBoard(size));
   };
 
-  // 単語が有効かどうかをチェック
-  console.log('results=' + results); // resultsがNULLかどうかを確認することで、検索結果を確認できるはず。
-  const isWordValid = useWordCheck(board);
-
-  // 単語を生成
-  const dispWord = generateWord();
   return (
     <div className={styles.container}>
       <h1>America Gon</h1>
