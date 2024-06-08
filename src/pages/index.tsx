@@ -28,7 +28,7 @@ export default function Home() {
     setSelectedCol(col);
   };
 
-  const { query, setQuery, results, handleSearch, handleKeyDown } = useDic(board, selectedRow, selectedCol);
+  const { verticalQuery, setVerticalQuery, holizontalQuery, setHolizontalQuery, results, handleSearch, handleKeyDown } = useDic(board, selectedRow, selectedCol);
 
   // これまでに入力されたすべてのセルを追跡
   const [inputCells, setInputCells] = useState<{row: number, col: number}[]>([]);
@@ -44,14 +44,10 @@ export default function Home() {
   // boardの状態が更新されるたびに、その内容をqueryに設定し、辞書検索を行う
   useEffect(() => {
     const word = board.flat().join('');
-    setQuery(word);
+    // 縦だけでOK。
+    setVerticalQuery(word);
     handleSearch();
   }, [board]);
-
-  // 文字列が更新されるたびに検索を行う
-  useEffect(() => {
-    handleSearch();
-  }, [query]);
 
   // リセットボタンを押したときの処理
   const handleReset = () => {
@@ -65,8 +61,10 @@ export default function Home() {
       <InputTable size={size} board={board} setBoard={setBoard}  onCellClick={handleCellClick}  inputCells={inputCells} />
       <ResetButton onReset={handleReset} />
       <p>English word here</p>
-      <h1>{query}</h1>
+      <h1>Col：{verticalQuery}</h1>
+      <h1>Row：{holizontalQuery}</h1>
       <ul className={styles.resultsList}>
+        {/* mapなので、縦と横それぞれ出力している状態。時間差でひとつずつ出したい */}
         {results.map((result, index) => (
           <li key={index}>{result}</li>
         ))}
