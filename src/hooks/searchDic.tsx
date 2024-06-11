@@ -1,6 +1,6 @@
 type SearchDicResult = {
-  word: string;       // 検索キーワード（暫定で縦文字列のみ返している）
-  matches: string[];  // 辞書で見つかった文字列（暫定で縦文字列のみ返している）
+  words: string[];    // 検索キーワード[縦と横の２つ分]
+  matches: string[];  // 辞書で見つかった文字列[縦と横の２つ分]
 }
 
 // 縦列の位置
@@ -135,12 +135,10 @@ const searchDic = async (board: string[][], row: number, col: number): Promise<S
   const verticalMatches = data[verticalWord] ? data[verticalWord].ja : [];
   const horizontalMatches = data[horizontalWord] ? data[horizontalWord].ja : [];
 
-  // TODO:横一列の端も取得できたので、戻り値で返すようにする
-
   // 一致する単語と、辞書の意味を戻り値で返す
   return {
-    word: verticalWord,
-    matches: [...verticalMatches],
+    words: [verticalWord, horizontalWord],
+    matches: [verticalMatches, horizontalMatches],
   };
 };
 
